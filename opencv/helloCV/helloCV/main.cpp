@@ -1,5 +1,7 @@
 #include "opencv2/opencv.hpp"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 using namespace cv;
@@ -9,7 +11,7 @@ void drawPoint(Mat img, Point2f pt, Scalar color)
 	Point2f outPt;
 	outPt.x = img.rows / 2 - pt.y;
 	outPt.y = img.cols - pt.x;
-	circle(img, Point2f(outPt.x, outPt.y), 1, color);
+	circle(img, Point2f(outPt.x, outPt.y), 1, color, 2);
 }
 int main(void)
 {
@@ -23,6 +25,8 @@ int main(void)
 	Scalar blue(255, 0, 0);
 	Scalar green(0, 255, 0);
 
+	srand((unsigned int)time(NULL));
+
 	circle(image, Point2f(image.rows / 2, image.cols), 2, Scalar(255, 255, 255));
 
 	Point2f leftPt[50];
@@ -30,14 +34,12 @@ int main(void)
 	for (int i = 0; i < 50; i++)
 	{
 		leftPt[i].y = i;
-		leftPt[i].x = -10;
+		leftPt[i].x = -10 + rand() % 2;
 
 		rightPt[i].y = i;
-		rightPt[i].x = 10;
+		rightPt[i].x = 10 + rand() % 2;
 	}
 
-	//memcpy(dstLeftList, lidarPt, sizeof(Point2f)*50);
-	
 	// Init drawing
 	Point2f dstLeftList[50];
 	Point2f dstRightList[50];
